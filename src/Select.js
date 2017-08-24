@@ -6,7 +6,7 @@ class Select extends Component{
     super(props);
 
     this.state = {valueSelected: props.shelf};
-    this.handleChange = this.handleChange.bind(this);
+    //this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange = (event) => {

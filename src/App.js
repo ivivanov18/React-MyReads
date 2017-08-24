@@ -5,6 +5,8 @@ import Library from './Library';
 import Shelf from './Shelf';
 import SearchBooks from './SearchBooks';
 import OpenSearch from './OpenSearch';
+import {BrowserRouter} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 
 
 class BooksApp extends React.Component {
@@ -49,23 +51,26 @@ class BooksApp extends React.Component {
 
   render() {
     return (
-      <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchBooks handleClick={this.changeShowSearchPage}/>
-        ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
+      <BrowserRouter>
+        <div className="app">
+          <Route path="/search" component={SearchBooks}/>
+
+          <Route path="/list" render={() => (
+            <div className="list-books">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div>
+              <div className="list-books-content">
+                <Library
+                  onChangeShelf={this.changeBooktoShelf}
+                  books = {this.state.books}/>
+              </div>
+              <OpenSearch />
             </div>
-            <div className="list-books-content">
-              <Library
-                onChangeShelf={this.changeBooktoShelf}
-                books = {this.state.books}/>
-            </div>
-            <OpenSearch handleClick={this.changeShowSearchPage} />
-          </div>
-        )}
-      </div>
+          )}/>
+
+        </div>
+      </BrowserRouter>
     )
   }
 }
