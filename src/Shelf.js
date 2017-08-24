@@ -20,7 +20,8 @@ class Shelf extends Component{
                         authors={book.authors}
                         url={book.imageLinks.thumbnail}
                         idBook={book.id}
-                        onChangeShelf={this.props.onChangeShelf}/>
+                        onChangeShelf={this.props.onChangeShelf}
+                        shelf={book.shelf}/>
                     </li>))
                   }
                 </ol>
