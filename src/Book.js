@@ -37,7 +37,7 @@ class Book extends Component{
 
           <Select
             shelf={this.props.shelf}
-            idBook={this.props.idBook}
+            id={this.props.id}
             onChangeShelf={this.handleChangeBookToShelf}
           />
 
@@ -52,7 +52,7 @@ Book.propTypes = {
   authors: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   url:PropTypes.string.isRequired,
-  idBook: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   onChangeShelf: PropTypes.func.isRequired,
   shelf: PropTypes.string.isRequired
 };

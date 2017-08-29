@@ -32,18 +32,16 @@ class BooksApp extends React.Component {
 
     const books = this.state.books.slice();
     for(let bookL of books){
-      if(bookL.id == book.idBook){
+      if(bookL.id == book.id){
         bookL.shelf = shelf;
       }
     }
     this.setState({books: books});
 
-    BooksAPI.update(book,shelf).then(
-      BooksAPI.getAll().then((books) => {
-      this.setState({ books })
-    }));
-
+    //BooksAPI.update(book,shelf).then(r => console.log('Shelf updated', r));
+    BooksAPI.update(book,shelf);
   }
+
 
   changeShowSearchPage = () => {
     this.setState(() => ({
@@ -55,7 +53,10 @@ class BooksApp extends React.Component {
     return (
       <BrowserRouter>
         <div className="app">
-          <Route exact path="/search" component={SearchBooks}/>
+          <Route exact path="/search" render={() => (
+
+            <SearchBooks onChangeShelf={this.changeBooktoShelf}/>
+          )}/>
 
           <Route exact path="/" render={() => (
             <div className="list-books">
