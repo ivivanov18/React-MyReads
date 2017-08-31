@@ -22,7 +22,7 @@ class Select extends Component{
     return(
       <div className="book-shelf-changer">
         <select
-          value={this.state.valueSelected}
+          value={this.state.valueSelected ? this.state.valueSelected : "none"}
           id="selectShelf"
           onChange={this.handleChange}>
           <option value="none" disabled>Move to...</option>

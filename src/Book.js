@@ -6,26 +6,11 @@ import Select from './Select';
 
 class Book extends Component{
 
-  /*get_selected = (a) => {
-    let selector = document.getElementById('selectShelf');
-    console.log(selector);
-    console.log(selector.selectedIndex);
-    console.log(selector.options[selector.selectedIndex]);
-    let valueSelected = selector.options[selector.selectedIndex].value;
-    console.log(valueSelected);
-    return valueSelected;
-  }
-
-  get_selected_2 = (event) => {
-    return event.target.value;
-  }*/
-
   handleChangeBookToShelf = (newShelf) => {
-    console.log("2");
-    console.log(newShelf);
     this.props.onChangeShelf(this.props, newShelf);
   }
 
+  //TODO: take care if length authors > 1
   render(){
     return(
       <div className="book">

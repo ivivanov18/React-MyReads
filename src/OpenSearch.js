@@ -6,7 +6,7 @@ class OpenSearch extends Component{
   render(){
     return(
       <div className="open-search">
-        <Link to="/search" onClick={this.props.handleClick}>Add a book</Link>
+        <Link to="/search">Add a book</Link>
       </div>
     );
   }

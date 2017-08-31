@@ -5,6 +5,7 @@ import sortBy from 'sort-by';
 import * as BooksAPI from './BooksAPI';
 import Book from './Book';
 
+
 class SearchBooks extends Component{
 
   state = {
@@ -14,17 +15,24 @@ class SearchBooks extends Component{
 
   updateQuery = (newQuery) => {
     this.setState({query: newQuery});
-    BooksAPI.search(newQuery, 4).then((books) => {
-      this.setState({booksFound: books})
+    BooksAPI.search(newQuery).then((books) => {
+      if(books){
+        this.setState({booksFound: books})
+      }else{
+
+      }
     });
   }
 
+
+  //TODO: correct issue when something written and try to delete it
+  //TODO: the new book does not appear automatically, the page must be refreshed
   render(){
     return(
 
       <div className="search-books">
         <div className="search-books-bar">
-          <Link to="/" className="close-search" onClick={this.props.handleClick}>Close</Link>
+          <Link to="/" className="close-search">Close</Link>
           <div className="search-books-input-wrapper">
             {/*
               NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -51,7 +59,7 @@ class SearchBooks extends Component{
                   url={book.imageLinks.thumbnail}
                   id={book.id}
                   onChangeShelf={this.props.onChangeShelf}
-                  shelf={book.shelf}/>
+                  shelf={book.shelf ? book.shelf : "none"}/>
               </li>
             ))}
           </ol>

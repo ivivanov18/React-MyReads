@@ -2,7 +2,6 @@ import React from 'react';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 import Library from './Library';
-import Shelf from './Shelf';
 import SearchBooks from './SearchBooks';
 import OpenSearch from './OpenSearch';
 import {BrowserRouter} from 'react-router-dom';
@@ -11,14 +10,6 @@ import {Route} from 'react-router-dom';
 
 class BooksApp extends React.Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-
-    //showSearchPage: true,
     books: [],
   }
 
@@ -29,17 +20,31 @@ class BooksApp extends React.Component {
   }
 
   changeBooktoShelf = (book, shelf) => {
-
+    console.log("book: ", book);
+    if(shelf === "none"){
+      const books = this.state.books.slice();
+      books.splice(books.indexOf(book),1);
+      console.log("IndexOf: ", books.indexOf(book));
+      this.setState({books: books});
+      return;
+    }
+    console.log("changeBooktoShelf");
     const books = this.state.books.slice();
     for(let bookL of books){
-      if(bookL.id == book.id){
+      if(bookL.id === book.id){
         bookL.shelf = shelf;
+        this.setState({books: books});
+        BooksAPI.update(book,shelf);
+        return;
       }
     }
-    this.setState({books: books});
+     //book not in books
+      books.push(book);
+      BooksAPI.update(book,shelf);
+      this.setState({books: books});
+      console.log(books);
 
     //BooksAPI.update(book,shelf).then(r => console.log('Shelf updated', r));
-    BooksAPI.update(book,shelf);
   }
 
 
@@ -53,9 +58,12 @@ class BooksApp extends React.Component {
     return (
       <BrowserRouter>
         <div className="app">
-          <Route exact path="/search" render={() => (
+          <Route exact path="/search" render={({history}) => (
 
-            <SearchBooks onChangeShelf={this.changeBooktoShelf}/>
+            <SearchBooks onChangeShelf={(book, shelf)=>{
+              this.changeBooktoShelf(book,shelf)
+              history.push('/')
+            }}/>
           )}/>
 
           <Route exact path="/" render={() => (
@@ -66,7 +74,7 @@ class BooksApp extends React.Component {
               <div className="list-books-content">
                 <Library
                   onChangeShelf={this.changeBooktoShelf}
-                  books = {this.state.books}/>
+                  books={this.state.books}/>
               </div>
               <OpenSearch />
             </div>
