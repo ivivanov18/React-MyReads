@@ -17,16 +17,15 @@ class SearchBooks extends Component{
     this.setState({query: newQuery});
     BooksAPI.search(newQuery).then((books) => {
       if(books){
-        this.setState({booksFound: books})
+        this.setState({booksFound: books});
       }else{
-
+        this.setState({booksFound: []});
       }
     });
   }
 
 
   //TODO: correct issue when something written and try to delete it
-  //TODO: the new book does not appear automatically, the page must be refreshed
   render(){
     return(
 

@@ -20,16 +20,18 @@ class BooksApp extends React.Component {
   }
 
   changeBooktoShelf = (book, shelf) => {
-    console.log("book: ", book);
+    /*console.log("book: ", book);
     if(shelf === "none"){
       const books = this.state.books.slice();
       books.splice(books.indexOf(book),1);
       console.log("IndexOf: ", books.indexOf(book));
       this.setState({books: books});
       return;
-    }
+    }*/
+
     console.log("changeBooktoShelf");
     const books = this.state.books.slice();
+
     for(let bookL of books){
       if(bookL.id === book.id){
         bookL.shelf = shelf;
@@ -39,12 +41,16 @@ class BooksApp extends React.Component {
       }
     }
      //book not in books
-      books.push(book);
+      /*books.push(book);
       BooksAPI.update(book,shelf);
       this.setState({books: books});
-      console.log(books);
+      console.log(books);*/
 
     //BooksAPI.update(book,shelf).then(r => console.log('Shelf updated', r));
+    BooksAPI.update(book,shelf).then(
+      BooksAPI.getAll().then((books) => {
+      this.setState({ books: books })
+    }));
   }
 
 
