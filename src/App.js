@@ -8,30 +8,34 @@ import {BrowserRouter} from 'react-router-dom';
 import {Route} from 'react-router-dom';
 
 
+/**
+* @description The main for the application
+*/
 class BooksApp extends React.Component {
+
   state = {
     books: [],
   }
 
+  /**
+  * @description Loads all the books from the backend server
+  */
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
     })
   }
 
+  /**
+  * @description Changes a book from shelf where it it to shelf in argument
+  * @param {book} book - The book to be changed to new shelf
+  * @param {string} shelf - The shelf where the book is the moved
+  */
   changeBooktoShelf = (book, shelf) => {
-    /*console.log("book: ", book);
-    if(shelf === "none"){
-      const books = this.state.books.slice();
-      books.splice(books.indexOf(book),1);
-      console.log("IndexOf: ", books.indexOf(book));
-      this.setState({books: books});
-      return;
-    }*/
 
-    console.log("changeBooktoShelf");
     const books = this.state.books.slice();
 
+    // Book is in books array
     for(let bookL of books){
       if(bookL.id === book.id){
         bookL.shelf = shelf;
@@ -40,25 +44,16 @@ class BooksApp extends React.Component {
         return;
       }
     }
-     //book not in books
-      /*books.push(book);
-      BooksAPI.update(book,shelf);
-      this.setState({books: books});
-      console.log(books);*/
 
     //BooksAPI.update(book,shelf).then(r => console.log('Shelf updated', r));
+
+    //For book not present in array
     BooksAPI.update(book,shelf).then(
       BooksAPI.getAll().then((books) => {
       this.setState({ books: books })
     }));
   }
 
-
-  changeShowSearchPage = () => {
-    this.setState(() => ({
-      showSearchPage: !this.state.showSearchPage,
-    }))
-  }
 
   render() {
     return (

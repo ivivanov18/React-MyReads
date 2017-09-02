@@ -4,6 +4,12 @@ import Shelf from './Shelf';
 
 class Library extends Component{
 
+
+  /**
+  * @description Filter the books in library according to the specific category
+  * @param {string} category - the shelf/category to filter to
+  * @returns {array} of books filtered according to given category
+  */
   filterBooksShelf = (category) => {
     return this.props.books.filter((book) => book.shelf === category);
   }
@@ -34,4 +40,5 @@ Library.propTypes = {
   onChangeShelf: PropTypes.func.isRequired,
   books: PropTypes.array.isRequired
 };
+
 export default Library;

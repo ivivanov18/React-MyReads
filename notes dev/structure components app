@@ -1,7 +1,0 @@
-- BookLibrary: contains the entire app
-	- SearchBar: receives user input
-	- 	Bookshelf: contains a specific shelf(currently read, want to read, read)
-		- BookList
-			- Book:contains the information for the book
-			- MoveBook: button to change a book from one shelf to the other
-	- AddBookButton: button to add book

@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import Select from './Select';
 
 
-
 class Book extends Component{
 
+  /**
+  * @description handle the changing of the book to a new shelf
+  * @param {string} newShelf - the shelf where the book is to be moved to
+  */
   handleChangeBookToShelf = (newShelf) => {
     this.props.onChangeShelf(this.props, newShelf);
   }

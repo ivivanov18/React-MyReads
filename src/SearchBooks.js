@@ -13,9 +13,13 @@ class SearchBooks extends Component{
     booksFound: []
   }
 
+  /**
+  * @description Function to update the query with the new entered query
+  * @param {string} newQuery - The new entered query
+  */
   updateQuery = (newQuery) => {
     this.setState({query: newQuery});
-    BooksAPI.search(newQuery).then((books) => {
+    BooksAPI.search(newQuery.trim()).then((books) => {
       if(books){
         this.setState({booksFound: books});
       }else{
@@ -24,9 +28,8 @@ class SearchBooks extends Component{
     });
   }
 
-
-  //TODO: correct issue when something written and try to delete it
   render(){
+
     return(
 
       <div className="search-books">
@@ -44,7 +47,7 @@ class SearchBooks extends Component{
             <input
               type="text"
               placeholder="Search by title or author"
-              value={this.state.query}
+              value={this.state.query.trim()}
               onChange={(event) => this.updateQuery(event.target.value)}/>
           </div>
         </div>
