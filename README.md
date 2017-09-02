@@ -17,3 +17,6 @@ You can use it locally on the computer the following way:
 - Install the dependencies by running the command: npm install
 - To start the app, run the command: npm start
 - To access the app, start the browser and go to the address http://localhost:3000
+
+# Ivan IVANOV
+### Software Engineer
