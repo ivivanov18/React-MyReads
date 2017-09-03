@@ -1,6 +1,6 @@
 This is the first project of the UDACITY React Nano Degree Program.
 
-##Aim
+## Aim
 Show the understanding of the fundamentals parts of React such as Components,
 Props and State management
 
