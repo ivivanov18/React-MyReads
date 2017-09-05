@@ -26,10 +26,24 @@ class SearchBooks extends Component{
     });
   }
 
+  /**
+  * @description Function that returns the shelf for a book already in Library
+  * @param {string} idFoundBook The id of the book found during the search
+  * @returns {string} The shelf for the given book, "none" if book not in library
+  */
+  foundBookIsInOwnLibrary = (idFoundBook) => {
+    for(let bookL of this.props.books){
+      if(idFoundBook === bookL.id){
+        return bookL.shelf;
+      }
+    }
+    // Book Found is not in own library
+    return "none";
+  }
+
+
   render(){
-
     return(
-
       <div className="search-books">
         <div className="search-books-bar">
           <Link to="/" className="close-search">Close</Link>
@@ -59,7 +73,8 @@ class SearchBooks extends Component{
                   url={book.imageLinks.thumbnail}
                   id={book.id}
                   onChangeShelf={this.props.onChangeShelf}
-                  shelf={book.shelf ? book.shelf : "none"}/>
+                  shelf={this.foundBookIsInOwnLibrary(book.id)}
+                  book={book}/>
               </li>
             ))}
           </ol>

@@ -32,22 +32,8 @@ class BooksApp extends React.Component {
   * @param {string} shelf - The shelf where the book is the moved
   */
   changeBooktoShelf = (book, shelf) => {
-    console.log("book: ", book);
-    console.log("typeof: ", typeof book);
 
     if (book.shelf !== shelf) {
-      const books = this.state.books.slice();
-
-      // Book is in books array
-      for(let bookL of books){
-        if(bookL.id === book.id){
-          bookL.shelf = shelf;
-          this.setState({books: books});
-          BooksAPI.update(book,shelf);
-          return;
-        }
-      }
-
       BooksAPI.update(book, shelf).then(() => {
         book.shelf = shelf;
 
@@ -56,28 +42,7 @@ class BooksApp extends React.Component {
         this.setState(state => ({
         books: state.books.filter(b => b.id !== book.id).concat([ book ])
       }))});
-
     }
-
-    //BooksAPI.update(book,shelf).then(r => console.log('Shelf updated', r));
-
-    //For book not present in array
-    /*BooksAPI.update(book,shelf).then(
-      BooksAPI.getAll().then((books) => {
-      this.setState({ books: books })
-    }));*/
-    /*if (book.shelf !== shelf) {
-      console.log("book.shelf: ", book.shelf);
-      console.log("shelf: ",shelf );
-      BooksAPI.update(book, shelf).then(() => {
-        book.shelf = shelf;
-
-        // Filter out the book and append it to the end of the list
-        // so it appears at the end of whatever shelf it was added to.
-        this.setState(state => ({
-        books: state.books.filter(b => b.id !== book.id).concat([ book ])
-      }))});
-    }*/
 
   }
 
@@ -88,10 +53,12 @@ class BooksApp extends React.Component {
         <div className="app">
           <Route exact path="/search" render={({history}) => (
 
-            <SearchBooks onChangeShelf={(book, shelf)=>{
-              this.changeBooktoShelf(book,shelf)
-              history.push('/')
-            }}/>
+            <SearchBooks
+              onChangeShelf={(book, shelf)=>{
+                this.changeBooktoShelf(book,shelf)
+                history.push('/')
+              }}
+              books={this.state.books}/>
           )}/>
 
           <Route exact path="/" render={() => (
