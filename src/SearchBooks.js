@@ -7,7 +7,7 @@ import Book from './Book';
 class SearchBooks extends Component{
 
   state = {
-    query: '',
+    //query: '',
     booksFound: []
   }
 
@@ -16,8 +16,8 @@ class SearchBooks extends Component{
   * @param {string} newQuery - The new entered query
   */
   updateQuery = (newQuery) => {
-    this.setState({query: newQuery});
-    BooksAPI.search(newQuery.trim()).then((books) => {
+    //this.setState({query: newQuery});
+    BooksAPI.search(newQuery).then((books) => {
       if(books){
         this.setState({booksFound: books});
       }else{
@@ -59,7 +59,7 @@ class SearchBooks extends Component{
             <input
               type="text"
               placeholder="Search by title or author"
-              value={this.state.query.trim()}
+              //value={this.state.query.trim()}
               onChange={(event) => this.updateQuery(event.target.value)}/>
           </div>
         </div>
